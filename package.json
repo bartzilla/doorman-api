@@ -1,0 +1,23 @@
+{
+  "name": "doorman-api",
+  "version": "1.0.0",
+  "description": "Core api for the doorman project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartzilla/doorman-api.git"
+  },
+  "author": "Cipriano Sanchez",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bartzilla/doorman-api/issues"
+  },
+  "homepage": "https://github.com/bartzilla/doorman-api#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "mongoose": "^4.8.4"
+  }
+}
