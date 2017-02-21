@@ -1,14 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongo = require('mongodb');
 var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/doorman-api');
-var db = mongoose.connection;
-
-var router = express.Router();
-var dmRoutes = require('./dm-modules/routes/dm-routes');
-// var users = require('./routes/users');
+var passport = require('passport');
+var config = require('./config/main');
 
 // Init App
 var app = express();
@@ -16,11 +10,14 @@ var app = express();
 // BodyParser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
 
+var router = express.Router();
+var dmRoutes = require('./dm-modules/routes/dm-routes');
 dmRoutes.registerRoutes(router);
 app.use('/', router);
 
-// app.use('/users', users);
+mongoose.connect(config.database);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
