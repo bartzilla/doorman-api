@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/bartzilla/doorman-api#readme",
   "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
     "express": "^4.14.1",
     "mongoose": "^4.8.4"
   }

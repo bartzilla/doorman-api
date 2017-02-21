@@ -1,19 +1,24 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/doorman-api');
 var db = mongoose.connection;
 
-var apiRoutes = express.Router();
+var router = express.Router();
 var dmRoutes = require('./dm-modules/routes/dm-routes');
 // var users = require('./routes/users');
 
 // Init App
 var app = express();
 
-dmRoutes.registerRoutes(apiRoutes);
-app.use('/', apiRoutes);
+// BodyParser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+dmRoutes.registerRoutes(router);
+app.use('/', router);
 
 // app.use('/users', users);
 
