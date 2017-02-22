@@ -1,4 +1,4 @@
-var Account = require('./model/account');
+// var Account = require('../../model/account');
 
 exports.findAll = function(callback){
 
@@ -9,15 +9,15 @@ exports.findAll = function(callback){
 
 exports.add = function(account, callback){
 
-  var newAccount = new Account(account);
-
-  Account.createAccount(newAccount, function(err, account){
-    if(err) {
-      throw err;
-    }
-    else{
-      console.log('Account successfully created: ', account);
-      return callback(null, account);
-    }
-  });
+  // var newAccount = new Account(account);
+  //
+  // Account.createAccount(newAccount, function(err, account){
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   else{
+  //     console.log('Account successfully created: ', account);
+  //     return callback(null, account);
+  //   }
+  // });
 };
