@@ -19,6 +19,7 @@ exports.add = function(tenantId, appId, account, callback){
     }
   });
 
+
   // var newAccount = new Account(account);
   //
   // Account.createAccount(newAccount, function(err, account){
@@ -31,3 +32,17 @@ exports.add = function(tenantId, appId, account, callback){
   //   }
   // });
 };
+
+exports.delete = function(tenantId, appId, accountId, callback){
+
+  Tenant.deleteAccount(tenantId, appId, accountId, function(err, account){
+    if(err) {
+      throw err;
+    }
+    else{
+      console.log('Account successfully deleted: ', account);
+      return callback(null, account);
+    }
+  });
+};
+

@@ -38,3 +38,20 @@ exports.addAccount = function(req, res){
     return res.status(400).json({success: false, message: 'Required parameters "email" and "password" must be specified'});
   }
 };
+
+
+exports.deleteAccount = function(req, res){
+  var tenantId = req.params.tenantId;
+  var appId = req.params.appId;
+  var accountId = req.params.accountId;
+
+  accountDao.delete(tenantId, appId, accountId, function(daoErr, daoRes){
+    if(daoErr){
+      console.log('[ACCOUNTS]: ERROR: Could not delete account.', dbErr);
+      return res.status(500).json({success: false, message: 'Error deleting account.'});
+    }
+    else{
+      return res.status(200).json(daoRes);
+    }
+  });
+};

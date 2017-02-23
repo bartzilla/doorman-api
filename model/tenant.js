@@ -112,6 +112,53 @@ module.exports.addAccount = function(tenantId, appId, account, callback){
   );
 };
 
+
+module.exports.deleteAccount = function(tenantId, appId, accountId, callback){
+  Tenant.findOne(
+    {
+      _id: tenantId
+    },
+    function(dbErr, dbRes){
+
+      if(dbErr){
+        console.log('[DELETE-ACCOUNT] Error deleting account', dbErr);
+        return callback({success: false, message: "Error deleting account "}, null);
+      }
+      else{
+
+        if(!dbRes || dbRes.applications.length<=0) {
+          console.log('[DELETE-ACCOUNT] No applications found');
+          return callback({success: false, message: "No applications found "}, null);
+        }
+        var app = null;
+        for(var i=0; i<=dbRes.applications.length; i++) {
+          if(dbRes.applications[i]._id == appId) {
+            app = dbRes.applications[i];
+            break;
+          }
+        }
+
+        for(var i=0 ; i<app.accounts.length; i++){
+          if(app.accounts[i]._id == accountId) {
+            app.accounts.splice(i, 1); break;
+          }
+        }
+
+        dbRes.save(function(svErr, svRes) {
+          if(svErr){
+            console.log('Error deleting account', svErr);
+            return callback({success: false, message: "Error deleting account "}, null);
+          }
+          else{
+            callback(null, svRes);
+          }
+        });
+      }
+    }
+  );
+};
+
+
 // Create method to compare password
 module.exports.comparePassword = function(tenant, pw, cb) {
   bcrypt.compare(pw, tenant.password, function(err, isMatch){
