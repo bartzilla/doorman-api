@@ -65,10 +65,38 @@ module.exports.updateTenant = function(tenantId, application, callback){
     function(dbErr, dbRes){
       if(dbErr){
         console.log('Error updating tenant with application info', dbErr);
-        return callback({success: false, message: 'Error updating tenant with application info'}, null);
+        return callback({success: false, message: "Error updating tenant's application info"}, null);
       }
       else{
         callback(null, dbRes);
+      }
+    }
+  );
+};
+
+module.exports.addAccount = function(tenantId, appId, account, callback){
+  Tenant.findOne(
+    {
+      _id: tenantId
+    },
+    function(dbErr, dbRes){
+
+      if(dbErr){
+        console.log('Error adding account', dbErr);
+        return callback({success: false, message: "Error adding account "}, null);
+      }
+      else{
+        dbRes.applications[0].accounts.push(account);
+
+        dbRes.save(function(svErr, svRes) {
+          if(svErr){
+            console.log('Error adding account', svErr);
+            return callback({success: false, message: "Error adding account "}, null);
+          }
+          else{
+            callback(null, svRes);
+          }
+        });
       }
     }
   );

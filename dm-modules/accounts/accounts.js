@@ -13,6 +13,8 @@ exports.getAccounts = function(req, res){
 };
 
 exports.addAccount = function(req, res){
+  var tenantId = req.params.tenantId;
+  var appId = req.params.appId;
 
   if(req.body.email && req.body.email.length >= 0
   && req.body.password && req.body.password.length >= 0){
@@ -23,7 +25,7 @@ exports.addAccount = function(req, res){
       // add some more optional records...
     };
 
-    accountDao.add(account, function(daoErr, daoRes){
+    accountDao.add(tenantId, appId, account, function(daoErr, daoRes){
       if(daoErr){
         console.log('[ACCOUNTS]: ERROR: Could not add account.', dbErr);
         return res.status(500).json({success: false, message: 'Error adding account.'});
