@@ -32,3 +32,18 @@ exports.addApplication = function(req, res){
     return res.status(400).json({success: false, message: 'Required parameters "applicationName" must be specified'});
   }
 };
+
+exports.deleteApplication = function(req, res){
+  var tenantId = req.params.tenantId;
+  var appId = req.params.appId;
+
+  applicationDao.delete(tenantId, appId, function(daoErr, daoRes){
+    if(daoErr){
+      console.log('[APPLICATION]: ERROR: Could not delete application.', dbErr);
+      return res.status(500).json({success: false, message: 'Error deleting application.'});
+    }
+    else{
+      return res.status(200).json(daoRes);
+    }
+  });
+};

@@ -10,12 +10,11 @@ var v1 = {
 };
 
 exports.registerRoutes = function(router) {
-
-
   router.post('/v1/tenants', v1.tenants.addTenant);
   router.post('/v1/tenants/:tenantId/applications', v1.applications.addApplication);
   router.post('/v1/tenants/:tenantId/applications/:appId/accounts', v1.accounts.addAccount);
   router.delete('/v1/tenants/:tenantId/applications/:appId/accounts/:accountId', v1.accounts.deleteAccount);
+  router.delete('/v1/tenants/:tenantId/applications/:appId', v1.applications.deleteApplication);
 
   router.get('/v1/accounts', v1.accounts.getAccounts);
 

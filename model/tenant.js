@@ -158,6 +158,45 @@ module.exports.deleteAccount = function(tenantId, appId, accountId, callback){
   );
 };
 
+module.exports.deleteApplication = function(tenantId, appId, callback){
+  Tenant.findOne(
+    {
+      _id: tenantId
+    },
+    function(dbErr, dbRes){
+
+      if(dbErr){
+        console.log('[DELETE-APPLICATION] Error deleting application', dbErr);
+        return callback({success: false, message: "Error deleting application "}, null);
+      }
+      else{
+
+        if(!dbRes || dbRes.applications.length<=0) {
+          console.log('[DELETE-APPLICATION] No applications found');
+          return callback({success: false, message: "No applications found "}, null);
+        }
+
+        for(var i=0; i<=dbRes.applications.length; i++) {
+          if(dbRes.applications[i]._id == appId) {
+             dbRes.applications.splice(i, 1); break;
+          }
+        }
+
+        dbRes.save(function(svErr, svRes) {
+          if(svErr){
+            console.log('Error deleting application', svErr);
+            return callback({success: false, message: "Error deleting application "}, null);
+          }
+          else{
+            callback(null, svRes);
+          }
+        });
+      }
+    }
+  );
+};
+
+
 
 // Create method to compare password
 module.exports.comparePassword = function(tenant, pw, cb) {

@@ -19,3 +19,16 @@ exports.add = function(tenantId, application, callback){
     }
   });
 };
+
+exports.delete = function(tenantId, appId, callback){
+
+  Tenant.deleteApplication(tenantId, appId, function(err, tenant){
+    if(err) {
+      throw err;
+    }
+    else{
+      console.log('Application successfully deleted: ', tenant);
+      return callback(null, tenant);
+    }
+  });
+};
