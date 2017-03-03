@@ -20,7 +20,7 @@ app.use('/', router);
 mongoose.connect(config.database);
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 
 app.listen(app.get('port'), function(){
   console.log('Doorman api is running on '+app.get('port'));

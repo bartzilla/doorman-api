@@ -32,6 +32,7 @@ var TenantSchema = mongoose.Schema({
         type: String,
         lowercase: true,
         unique: true,
+        sparse: true,
         required: true
       },
       password: {
